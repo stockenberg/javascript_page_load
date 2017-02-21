@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<header>HEADER INFOS
+    <nav>
+        <a href="#home">Startseite</a>
+        <a href="#about">About-Seite</a>
+        <a href="#contact">Kontakt-Seite</a>
+    </nav>
+</header>
+
+<main></main>
+
+<footer>Footer infos</footer>
+<script src="js/jquery3.1.js"></script>
+<script>
+
+    var whitelist = ["home", "about", "contact"];
+    var page;
+
+    if(typeof window.location.hash.split("#")[1] !== "undefined"){
+        page = window.location.hash.split("#")[1];
+        loadPage(page);
+    }else{
+        loadPage("home");
+    }
+
+    $("nav a").click(function () {
+        page =  $(this).attr("href").split("#")[1]
+        loadPage(page);
+    });
+
+    function loadPage(page_parameter) {
+        for(var i = 0; i < whitelist.length; i++){
+            if(page_parameter == whitelist[i]){
+                $("main").load("pages/" + page_parameter + ".html");
+                // I needed to cancle the loop when page was found or home is loaded!
+                break;
+            }else{
+                $("main").load("pages/home.html");
+            }
+        }
+    }
+
+
+
+</script>
+</body>
+</html>
